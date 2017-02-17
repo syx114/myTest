@@ -1,0 +1,44 @@
+
+server.port: 8080
+server.ssl.enabled: false
+server.ssl.key-store: classpath:keystore.jks
+server.ssl.key-store-password: changeit
+
+
+yintai:
+  connection:
+    defaultConnectionTimeout: 5000
+    defaultSoTimeout: 10000
+    maxPerRoute: 100
+    maxTotalConnection: 1000
+    defaultConnectionRequestTimeout: 1000
+  proxy:
+    url:
+      userService: http://localhost:9999
+
+spring:
+  profiles.active: development
+---
+spring:
+  profiles: development
+  solrCloud: http://search-solr-slave-prod.ytapi.org/solr/styleproduct
+  data:
+      elasticsearch:
+        cluster-name: Elasticsearch
+        cluster-nodes: 10.138.1.20:9300
+---
+spring:
+  profiles: testing
+  solrCloud: http://search-solr-slave-prod.ytapi.org/solr/styleproduct
+  data:
+      elasticsearch:
+        cluster-name: Elasticsearch
+        cluster-nodes: 10.138.1.20:9300
+---
+spring:
+  profiles: production
+  solrCloud: http://search-solr-slave-prod.ytapi.org/solr/styleproduct
+  data:
+      elasticsearch:
+        cluster-name: Elasticsearch
+        cluster-nodes: 10.138.1.20:9300
